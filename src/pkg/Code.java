@@ -1,11 +1,14 @@
 package pkg;
 
+import java.io.*;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Code {
 
     private int[] accountNums = {2003, 2000, 2050};
-    private int[] money = {50, 40, 2000};
+    int money[] = new int[10];
+    //= {50, 40, 2000};
     private int place;
 
     Scanner in = new Scanner(System.in);
@@ -30,6 +33,9 @@ public class Code {
                 break;
             case "settings":
                 settings();
+                break;
+            case "d":
+                write();
                 break;
         }
     }private void management(int opt) {
@@ -65,5 +71,30 @@ public class Code {
                 test = true;
                 break;
             }}return test;
+    }private void read() {
+        try {
+            Scanner scanner = new Scanner(new File("balance.txt"));
+            int [] tall = new int [10];
+            int i = 0;
+            while(scanner.hasNextInt()){
+                tall[i++] = scanner.nextInt();
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+    }private void write() {
+        //doesnt work correctly yet
+        money[0] = 50;
+        money[1] = 340;
+        money[2] = 123;
+        try {
+            FileWriter file = new FileWriter("balance.txt");
+            for (int i = 0; i < money.length; i++) {
+                file.write(money[i]);
+            }
+            file.close();
+        } catch (IOException e) {
+            System.out.println("Error - " + e.toString());
+        }
     }
 }
